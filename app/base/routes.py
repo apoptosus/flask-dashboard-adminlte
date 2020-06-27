@@ -21,7 +21,7 @@ from app.base.util import verify_pass
 
 @blueprint.route('/')
 def route_default():
-    return redirect(url_for('base_blueprint.login'))
+    return render_template('index.html')
 
 @blueprint.route('/page_<error>')
 def route_errors(error):
@@ -33,14 +33,14 @@ def route_errors(error):
 def login():
     login_form = LoginForm(request.form)
     if 'login' in request.form:
-        
+
         # read form data
         username = request.form['username']
         password = request.form['password']
 
         # Locate user
         user = User.query.filter_by(username=username).first()
-        
+
         # Check the password
         if user and verify_pass( password, user.password):
 
